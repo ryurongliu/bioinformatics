@@ -139,15 +139,40 @@ def get_unspliced_slices(wanted_entries, chr_seqs, sequence_ids, fragment_size):
                 end = feature.location.end 
                 strand = feature.location.strand 
 
+                
+                #forward
                 if strand == 1:
-                    seq = get_slice(chr_seqs[id].seq, 
+                    
+                    if start >= fragment_size:
+                        seq = get_slice(chr_seqs[id].seq, 
                                     start - (fragment_size - 1), start + fragment_size) #beginning shifted by 1
-
+                    
+                    #check for not enough sequence at beginning, pad with Ns
+                    elif start < fragment_size: 
+                        partial_seq = get_slice(chr_seqs[id].seq, 
+                                               1, start + fragment_size)
+                        
+                        print(len(partial_seq))
+                        pad = "N" * (fragment_size*2 - len(partial_seq))
+                        seq = pad + partial_seq
+                        print(len(seq), 'start padded')
+                        print(id, i)
+                    
+                    
+                    
+                #backward
                 elif strand == -1:
                     seq = get_slice(chr_seqs[id].seq, 
                                     end - (fragment_size - 1), end + fragment_size) #beginning shifted by 1
-
-                #print(len(seq))
+                    
+                    #check for not enough sequence at end, pad with Ns
+                    if len(seq) < fragment_size*2: 
+                        print(len(seq))
+                        pad = "N" * (fragment_size*2 - len(seq))
+                        seq = seq + pad
+                        print(len(seq), 'end padded')
+                        print(id, i)
+                
                 unspliced_slices[id][i] = seq
                 
     return unspliced_slices
