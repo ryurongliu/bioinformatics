@@ -23,43 +23,25 @@ Output files will be saved as .csv to a subfolder called "expanded", with the sa
 
 def expand_file(filename, bin_size):
     newrows = []
+    lines = []
 
     with open(filename, 'r') as f:
         lines = f.readlines()
 
-        #last entry needs checking for bin size 
-        for row in lines[:-1]:
-            #print(row)
-            row = row.split("\t")
-            chr_name = row[0]
-            bin_start = int(row[1])
-            bin_end = int(row[2])
-            bin_amt = float(row[3])
 
-            #figure out how many bins to split into
-            diff = bin_end - bin_start
-            num_bins = int(diff / bin_size)
-
-            #make new rows for each new bin
-            for i in range(num_bins):
-                new_start = bin_start + i*bin_size
-                new_end = bin_start + (i+1)*bin_size
-                new_row = [chr_name, new_start, new_end, bin_amt]
-                newrows.append(new_row)
-                #print("\t", new_start, new_end)
-
-        
-        #deal with last row separately
-        lastrow = lines[-1]
-        #print(lastrow)
+    for row in lines:
+        row = row.split("\t")
         chr_name = row[0]
         bin_start = int(row[1])
         bin_end = int(row[2])
         bin_amt = float(row[3])
 
-        diff = bin_end - bin_start 
+        #figure out how many full bins to split into
+        diff = bin_end - bin_start
         num_bins = int(diff / bin_size)
-        remainder = diff - num_bins * bin_size #last bin will be remainder-sized 
+
+        #check for remainder
+        remainder = diff - num_bins * bin_size 
 
         #make new rows for each new full-sized bin
         for i in range(num_bins):
@@ -69,9 +51,12 @@ def expand_file(filename, bin_size):
             newrows.append(new_row)
             #print("\t", new_start, new_end)
 
-        new_lastrow = [chr_name, new_end, bin_end, bin_amt]
-        newrows.append(new_lastrow)
-        #print("\t", new_end, bin_end)
+        #if there is a remainder, make a remainder bin
+        if remainder:
+            #print(row)
+            new_rem_bin = [chr_name, new_end, bin_end, bin_amt]
+            newrows.append(new_rem_bin)
+            #print(new_rem_bin)
         
     return newrows
 
@@ -112,7 +97,7 @@ if __name__ == "__main__":
         print("expanding file", i+1, "of", len(files), "-->", file)
         expanded = expand_file(file, bin_size) 
 
-        outfile = outfolder + file.split(".")[0] + "_expanded.csv"
+        outfile = outfolder + file.split(".")[0] + "_expanded.txt"
         with open(outfile, 'w') as f:
             writer = csv.writer(f, delimiter = "\t")
             for row in expanded:
