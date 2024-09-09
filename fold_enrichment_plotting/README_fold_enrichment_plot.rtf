@@ -1,0 +1,115 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww20640\viewh12980\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 PLOTTING INSTRUCTIONS\ulnone \
+\
+1. Config Setup\
+\
+	Inside the folder named PLOTTING, there are three config files:\
+		\
+		config_template.json \'97> empty config template. You can copy/paste this if you want an empty config file.\
+		config_sample.json \'97> example config file filled out.\
+		config.json \'97> default config file that the plotting program looks for.\
+\
+	You can edit config.json to set up each plot.\
+\
+	Inside the config file, there are data parameters:\
+	\
+		type \'97> \'93fold\'94 or \'93avg\'94, which dataset to plot\
+		control \'97> \'93SM-HA\'94 or \'93SM-IgG\'94, the control group\
+		sample \'97> \'93SAMPLE-NAME\'94, the sample name (case-sensitive and dash-sensitive). \
+		chromosomes \'97> a list of chromosomes to plot. Names must be within \'93\'94 quotation marks \
+					and separated by commas. Must be inside [] brackets. \
+		subsamples \'97>  a list of subsampling numbers out of [1, 2, 3, 5]. \
+					Must be inside brackets. Should NOT be in quotes. \
+\
+	There are also plot parameters:\
+		\
+		filename \'97> name of saved image file. Must be given in \'93\'94 quotes. \
+				You have to append the extension, e.g. .png / .tiff / .jpeg. \
+		plot_title \'97> title of plot. Must be given in \'93\'94 quotes. \
+		cutoff_point \'97> lower limit of y-axis. Must be given as a number, NOT in quotations. \
+		cutoff_data \'97> true or false (lowercase), NOT in quotations. \
+				true only plots 3-in-a-row bins that are > cutoff_point. \
+				false will plot all data. \
+		y_limit \'97> top limit to the y-axis. Can be given as a number OR as null, NOT in quotes. \
+				If null, the plot will automatically scale to fit all plotted data. \
+				The program will automatically print out the maximum fold enrichment in the current plot,\
+				which can be referenced when adjusting the y axis limit. \
+		\
+		figure_size \'97> size of the figure in inches, given as a list of numbers, NOT in quotes.\
+		dpi \'97> dots per inch for saved file. Must be given as a number, NOT in quotes.\
+		plot_title_fontsize \'97> font size for plot tile. Must be given as a number, NOT in quotes. \
+\
+		spacing \'97> spaces between each chromosome. This should be adjusted as you add \
+				more/less chromosomes to the figure. Must be given as an integer, NOT in quotes. \
+		\
+		marker \'97> marker type. Different markers can be found at \
+				https://matplotlib.org/stable/api/markers_api.html . Must be given in quotes.\
+		marker_size \'97> size of marker. Must be given as a number, NOT in quotes.\
+		colors \'97> list of colors, matched to different subsamples. Must give the same number \
+				of colors as number of subsamples. Colors given in quotes, \
+				separated by commas, all inside [] brackets. More colors can be found at \
+				https://matplotlib.org/stable/gallery/color/named_colors.html .\
+		\
+		gene_arrows \'97> true or false (lowercase), NOT in quotes. Whether or not to plot gene arrows.\
+		chr_start_end_lines \'97> true or false (lowercase), NOT in quotes. Whether or not to show\
+				lines beneath the x-axis for the start and end of each chromosome. \
+	\
+		chr_name_rotate \'97> number between 0 and 90, NOT in quotes. Rotation of the chromosome\
+				 names, 0 is horizontal and 90 is vertical.  \
+		chr_name_fontsize \'97> fontsize for chromosome names.\
+		y_label_fontsize \'97> fontsize for y-axis label.\
+		legend_fontsize \'97> fontsize for legend. \
+\
+\
+2. Running the Plot Script\
+\
+To run the plot script, open Terminal and navigate inside the PLOTTING folder. \
+The simplest way to run the script is to enter the following command:\
+\
+	python plot.py -s\
+\
+This will read the \'93config.json\'94 file, save the image and config file inside the plots folder, and open the plot image in python.\
+Make sure to update the filename parameter in config, otherwise the existing file will be saved over without warning. \
+\
+\
+3. Script Options\
+\
+There are four optional inputs to the program:\
+\
+	python plot.py -c [config_file] -s -q -i\
+\
+\
+-c [config_file] lets you specify a different input config file by path. For example:\
+\
+	python plot.py -c my_other_config.json\
+\
+This will read the config file named my_other_config.json instead of reading config.json. \
+\
+\
+-s specifies whether or not to save the image. If you omit -s, you can generate a plot without saving it.\
+\
+\
+-q specifies \'93quiet\'94, whether or not to print out information while plotting. For example:\
+\
+	python plot.py -q\
+\
+This command will read config.json and open up an image without saving, but you won\'92t get any info printed to the terminal. \
+\
+\
+-i specifies \'93invisible\'94, whether or not to open the image in python after plotting. For example:\
+\
+	python plot.py -s -i\
+\
+This command will read config.json and save the plot image in the plots folder, but it won\'92t automatically pop up for you to see. \
+\
+\
+\
+\
+\
+			}

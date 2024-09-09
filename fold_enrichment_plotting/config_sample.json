@@ -1,0 +1,35 @@
+{"data": 
+ 
+     {"type": "fold", 
+      "control": "SM-HA", 
+      "sample": "F2H-TbRAP1", 
+      "chromosomes": ["BES3_Tb427v10", "BES10_Tb427v10"], 
+      "subsamples": [1, 2]
+     }, 
+ 
+ "plot": 
+ 
+     {"filename": "test.png", 
+      "plot_title": "Test Plot", 
+      "cutoff_point": 5, 
+      "cutoff_data": false, 
+      "y_limit": null,
+      
+      "figure_size": [18, 8], 
+      "dpi": 300, 
+      "plot_title_fontsize": 20, 
+      
+      "spacing": 100, 
+      
+      "marker": ".", 
+      "marker_size": 10, 
+      "colors": ["r", "g"], 
+      
+      "gene_arrows": true, 
+      "chr_start_end_lines": true, 
+      "chr_name_rotate": 0, 
+      "chr_name_fontsize": 12, 
+      "y_label_fontsize": 12, 
+      "legend_fontsize": 12
+     }
+}

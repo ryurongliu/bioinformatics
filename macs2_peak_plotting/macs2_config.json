@@ -1,0 +1,27 @@
+{
+  "data": {
+    "sample": "",
+    "chromosomes": []
+  },
+  "plot": {
+    "filename": "",
+    "figure_size": [18, 8],
+    "dpi": 200,
+    "plot_title": "",
+    "plot_title_fontsize": 20,
+      
+    "spacing": 100,
+    "y_limit": 500,
+      
+    "color": "r",
+    "marker_size": 10,
+      
+    "gene_arrows": true,
+    "chr_start_end_lines": true,
+      
+    "chr_name_rotate": 90,
+    "chr_name_fontsize": 12,
+    "y_label_fontsize": 12,
+    "legend_fontsize": 12
+  }
+}
